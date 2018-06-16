@@ -46,16 +46,13 @@ public class Remove_AT_Uni_test {
 			String readline_master = "";
 			br.readLine();//skip the attributes description
 			readline_master = br.readLine();//first line
-
-			
+	
 			/*Read master file*/
 			while(readline_master!=null) {
 				
 				String pre_key = "";
 				/*Read the first element in one group*/
 				String[] attr = readline_master.split(",");
-				//System.out.println(attr[2]);
-				
 				
 				/*Get the group key*/
 				for(int i=0;i<18;i++) {
