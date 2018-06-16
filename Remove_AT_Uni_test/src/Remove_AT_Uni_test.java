@@ -52,9 +52,6 @@ public class Remove_AT_Uni_test {
 			while(readline_master!=null) {
 				
 				String pre_key = "";
-				
-				
-				//System.out.println(readline_master);
 				/*Read the first element in one group*/
 				String[] attr = readline_master.split(",");
 				//System.out.println(attr[2]);
@@ -64,7 +61,7 @@ public class Remove_AT_Uni_test {
 				for(int i=0;i<18;i++) {
 					pre_key = pre_key + attr[i]+",";
 				}
-				//System.out.println(pre_key);
+				
 				
 				/*Skip all TestProcess files*/
 				if(attr[2].contains("TestProcess")) {
@@ -78,7 +75,6 @@ public class Remove_AT_Uni_test {
 					/*Find the directory in master file for this group*/
 					int index = attr[2].lastIndexOf("\\");
 					String dir_master = attr[2].substring(0, index);
-					//System.out.println("This is the check for match map dir_master "+dir_master);
 					/*Take the whole line as the key
 					 *For each group we create a Map */
 					/*<readline_master, Test id>*/
@@ -89,7 +85,7 @@ public class Remove_AT_Uni_test {
 					/*attr[22] store the code we need to match in compare file.
 					 * Put the first element in map*/
 					master_map.put(readline_master, Integer.parseInt(attr[22]));//store the first line in group
-					//System.out.println(attr[22]);
+					
 					
 					/*The bound condition is that there are only one member in the group*/
 					/*Loop in one group.
@@ -103,8 +99,6 @@ public class Remove_AT_Uni_test {
 						}
 						/*Using keys to identify whether they belong to the
 						 * same group*/
-						//System.out.println("pre_key: "+pre_key);
-						//System.out.println("cur_key: "+cur_key);
 						if(!cur_key.equals(pre_key)) {
 							break;
 						}
@@ -118,12 +112,8 @@ public class Remove_AT_Uni_test {
 					for(Map.Entry<Integer, String> entry :cmp_map.entrySet()) {
 						attr = entry.getValue().split(",");
 						String dir_cmp = attr[6];
-						//System.out.println("This is the check for match map dir_master "+dir_master+" dir_cmp "+dir_cmp);
 						if(dir_master.equals(dir_cmp)) {
-							//System.out.println("This is the check for match map dir_master "+dir_master+" dir_cmp "+dir_cmp);
 							String cmp_line = pre_key+attr[1]+","+","+","+","+entry.getValue();
-							//System.out.println("This is the check for match map line "+cmp_line);
-							System.out.println(entry.getValue());
 							match_map.put(cmp_line, Integer.parseInt(attr[0]));
 						}
 						
@@ -132,11 +122,8 @@ public class Remove_AT_Uni_test {
 					/*Record the code that existing in both master and match map*/
 					Map<String,Integer> record_map = new HashMap<String,Integer>();
 					for(Map.Entry<String,Integer> entry_master : master_map.entrySet()) {
-						//System.out.println("entry_master: "+entry_master.getValue());
 						for(Map.Entry<String,Integer> entry_match : match_map.entrySet()) {
-							//System.out.println("entry_match: "+entry_match.getValue());
 							if(entry_master.getValue().equals(entry_match.getValue() )) {
-								System.out.println("= "+entry_master.getValue());
 								record_map.put(entry_master.getKey(),entry_master.getValue());
 								writer.write(entry_master.getKey());
 								writer.newLine();
@@ -147,7 +134,6 @@ public class Remove_AT_Uni_test {
 					/*Find the element we need to insert*/
 					if(record_map.isEmpty()) {
 						for(Map.Entry<String,Integer> entry_match : match_map.entrySet()) {
-							//System.out.println(entry_match.getValue());
 							writer.write(entry_match.getKey());
 							writer.newLine();
 						}
